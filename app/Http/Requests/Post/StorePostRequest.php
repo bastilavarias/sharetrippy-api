@@ -51,6 +51,21 @@ class StorePostRequest extends FormRequest
                 'timelines.*.lodgings.*' => 'required|string|distinct',
                 'is_draft' => 'boolean',
             ];
+        } elseif ($type === 'timeline' && $step === 3) {
+            $rules = [
+                'post_id' => 'required|integer',
+                'is_draft' => 'boolean',
+                'reminders.*' => 'array',
+                'reminders.*.title' => 'required|string|distinct',
+                'reminders.*.description' => 'required|string',
+            ];
+        } elseif ($type === 'timeline' && $step === 4) {
+            $rules = [
+                'post_id' => 'required|integer',
+                'is_draft' => 'boolean',
+                'images' => 'array',
+                'images.*' => 'required|image|mimes:jpeg,png,jpg|max:2048',
+            ];
         }
 
         return $rules;

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API\V1;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Post\StorePostRequest;
 use App\Models\Post;
+use App\Services\ImageService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -73,6 +74,20 @@ class PostController extends Controller
                 foreach ($timelineInput['lodgings'] as &$item) {
                     $timeline->lodgings()->create(['key' => 'lodging', 'title' => $item]);
                 }
+            }
+        } elseif ($step === 3) {
+            foreach ($payload['reminders'] as &$item) {
+                $post->tags()->create([
+                    'key' => 'reminder',
+                    'title' => $item['title'],
+                    'description' => $item['description'],
+                ]);
+            }
+        } elseif ($step === 4) {
+            foreach ($payload['images'] as &$item) {
+                $location = 'posts';
+                $uploaded = ImageService::uploadImage($item, $location);
+                $post->images()->create($uploaded);
             }
         }
     }

@@ -16,8 +16,8 @@ class UserController extends Controller
     public function store(StoreUserRequest $request)
     {
         $payload = [
-          'email' => $request->input('email'),
-          'password' => bcrypt($request->input('password'))
+            'email' => $request->input('email'),
+            'password' => bcrypt($request->input('password')),
         ];
         $user = User::create($payload);
         $payload = [
@@ -26,7 +26,7 @@ class UserController extends Controller
             'last_name' => $request->input('last_name'),
             'birthdate' => $request->input('birthdate'),
             'location' => $request->input('location'),
-            'bio' => $request->input('bio')
+            'bio' => $request->input('bio'),
         ];
         $user->profile()->create($payload);
         return customResponse()
@@ -40,7 +40,7 @@ class UserController extends Controller
     {
         $payload = [
             'bio' => $request->input('bio'),
-            'location' => $request->input('location')
+            'location' => $request->input('location'),
         ];
         $user->profile()->update($payload);
         $profile = $user->profile->refresh();
@@ -58,5 +58,4 @@ class UserController extends Controller
             ->success()
             ->generate();
     }
-
 }
