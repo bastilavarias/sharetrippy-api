@@ -1,0 +1,11 @@
+{
+    "private": true,
+    "scripts": {
+        "dev": "vite",
+        "build": "vite build"
+    },
+    "devDependencies": {
+        "@prettier/plugin-php": "^0.19.2",
+        "prettier": "^2.8.1"
+    }
+}
